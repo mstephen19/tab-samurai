@@ -1,0 +1,39 @@
+{
+    "manifest_version": 3,
+    "name": "Tab Samurai",
+    "short_name": "Tabs",
+    "version": "1.0.0",
+    "description": "Take your browsing experience to the next level with automatic tab hibernation, smart tab management, and intuitive tab recovery.",
+    "icons": {
+        "16": "public/icon16.png",
+        "32": "public/icon32.png",
+        "48": "public/icon48.png",
+        "128": "public/icon128.png"
+    },
+    "incognito": "split",
+    "permissions": ["storage", "tabs", "windows", "sessions"],
+    "action": {
+        "default_title": "Tab Samurai",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "service_worker": "src/background/index.ts",
+        "type": "module"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["src/content/index.ts"],
+            "run_at": "document_start"
+        }
+    ],
+    "commands": {
+        "_execute_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+0",
+                "mac": "Command+Shift+0"
+            },
+            "description": "Open Tab Samurai."
+        }
+    }
+}
