@@ -232,14 +232,15 @@ const TabGroupListItem = ({
 }) => {
     const accordionRef = useRef<HTMLDivElement>(null);
 
+    const [accordionOpen, setAccordionOpen] = useState(false);
     const handleAccordionChange = useCallback(
-        (_: SyntheticEvent, expanded: boolean) =>
-            expanded &&
-            accordionRef.current &&
-            getScrollableParent(accordionRef.current)?.scrollBy({
-                behavior: 'smooth',
-                top: accordionRef.current.getBoundingClientRect().y - 140,
-            }),
+        (_: SyntheticEvent, expanded: boolean) => setAccordionOpen(expanded),
+        // expanded &&
+        // accordionRef.current &&
+        // getScrollableParent(accordionRef.current)?.scrollBy({
+        //     behavior: 'smooth',
+        //     top: accordionRef.current.getBoundingClientRect().y - 140,
+        // }),
         []
     );
 
@@ -394,10 +395,18 @@ const TabGroupListItem = ({
     return (
         <BasicListItem>
             <BasicAccordion
+                expanded={accordionOpen}
                 onChange={handleAccordionChange}
                 slotProps={{
                     transition: {
                         unmountOnExit: true,
+                        addEndListener: () =>
+                            accordionOpen &&
+                            accordionRef.current &&
+                            getScrollableParent(accordionRef.current)?.scrollBy({
+                                behavior: 'smooth',
+                                top: accordionRef.current.getBoundingClientRect().y - 140,
+                            }),
                     },
                 }}>
                 <Box display='flex' alignItems='center' gap='5px'>
