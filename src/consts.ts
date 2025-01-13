@@ -2,7 +2,11 @@ import type { AppData, Config } from './types';
 
 export const EXTENSION_VERSION = chrome.runtime.getManifest().version;
 
-export const UNINSTALL_URL = 'https://forms.gle/3z7SJpmyawPS5Lj88';
+export const UNINSTALL_URL = 'https://forms.gle/VoMrWPXvMjXrC7Z4A';
+
+export const FEATURE_REQUEST_URL = 'https://forms.gle/99eJ7TNeiMnwahyD6';
+
+export const REPORT_BUG_URL = 'https://github.com/mstephen19/tab-samurai/issues';
 
 export const CREATOR_LINKS = ['https://www.linkedin.com/in/mstephen19/', 'https://github.com/mstephen19'];
 
@@ -40,7 +44,7 @@ export const HELP_AND_INFO_FAQ: { primary: string; secondary: string }[] = [
     },
     {
         primary: 'How do I quickly open Tab Samurai?',
-        secondary: `Use this shortcut to open this window: ${
+        secondary: `Use this keyboard shortcut to open this window: ${
             navigator.userAgent.includes('Mac') ? 'Command (⌘) + Shift + 0 (zero)' : 'Ctrl + Shift + 0 (zero)'
         }`,
     },

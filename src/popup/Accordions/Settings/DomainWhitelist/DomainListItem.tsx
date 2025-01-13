@@ -1,4 +1,4 @@
-import { IconButton, ListItem, ListItemText } from '@mui/material';
+import { IconButton, ListItem, ListItemText, Tooltip } from '@mui/material';
 import { memo, useContext } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ConfigContext } from '../../../context/ConfigProvider';
@@ -23,9 +23,11 @@ const DomainListItem = memo(({ domain }: { domain: string }) => {
             disableGutters
             sx={{ gap: '10px' }}
             secondaryAction={
-                <IconButton edge='end' onClick={handleDelete}>
-                    <DeleteIcon />
-                </IconButton>
+                <Tooltip placement='left' arrow title='Remove Domain'>
+                    <IconButton edge='end' onClick={handleDelete}>
+                        <DeleteIcon />
+                    </IconButton>
+                </Tooltip>
             }>
             <DomainFavicon domain={domain} />
 

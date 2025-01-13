@@ -211,6 +211,15 @@ const TabListItem = memo(
     }
 );
 
+const getScrollableParent = (elem: HTMLElement) => {
+    for (let parent = elem.parentElement; parent !== null; parent = parent.parentElement ?? null) {
+        const style = getComputedStyle(parent);
+        if (style.overflowY === 'scroll' && parent.scrollHeight) return parent;
+    }
+
+    return parent;
+};
+
 const TabGroupListItem = ({
     title,
     tabs,
@@ -225,9 +234,10 @@ const TabGroupListItem = ({
     const handleAccordionChange = useCallback(
         (_: SyntheticEvent, expanded: boolean) =>
             expanded &&
-            accordionRef.current?.scrollIntoView({
+            accordionRef.current &&
+            getScrollableParent(accordionRef.current)?.scrollBy({
                 behavior: 'smooth',
-                block: 'center',
+                top: accordionRef.current.getBoundingClientRect().y - 140,
             }),
         []
     );
@@ -365,7 +375,7 @@ const TabGroupListItem = ({
                         {someTabsCapturingAudio && <MicIcon sx={{ fontSize: '1rem' }} />}
                     </BasicAccordionSummary>
 
-                    <Tooltip title='Group Options' placement='left' arrow>
+                    <Tooltip title={`${groupType === 'Window' ? 'Window' : 'Group'} Options`} placement='left' arrow>
                         <IconButton onClick={handleOpenMenu}>
                             <MoreHorizIcon />
                         </IconButton>

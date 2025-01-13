@@ -54,8 +54,10 @@ const HelpAndInfoAccordion = () => (
 
 export const Accordions = () => {
     return (
-        <Box>
-            <ConfigProvider>
+        // Not all of the components below depend on ConfigContext (only "Settings" & "QuickActions" do), but they're all being wrapped anyways
+        // to prevent unwanted "flashing" behavior. This is because storeProvider won't render content until it's initialized.
+        <ConfigProvider>
+            <Box>
                 <SettingsAccordion />
 
                 <Divider flexItem />
@@ -67,17 +69,17 @@ export const Accordions = () => {
 
                     <ManageTabsAccordion />
                 </TabsProvider>
-            </ConfigProvider>
 
-            <Divider flexItem />
+                <Divider flexItem />
 
-            <SessionsProvider>
-                <RecoverTabsAccordion />
-            </SessionsProvider>
+                <SessionsProvider>
+                    <RecoverTabsAccordion />
+                </SessionsProvider>
 
-            <Divider flexItem />
+                <Divider flexItem />
 
-            <HelpAndInfoAccordion />
-        </Box>
+                <HelpAndInfoAccordion />
+            </Box>
+        </ConfigProvider>
     );
 };

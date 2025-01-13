@@ -1,36 +1,8 @@
-import { useEffect, useState } from 'react';
-import log from '../log';
+import { useMemo } from 'react';
 
-export const useDomainFavicon = (domain: string) => {
-    const [objectUrl, setObjectUrl] = useState('');
+export const useDomainFavicon = (domain: string) =>
+    useMemo(() => {
+        const domainOrigin = new URL(domain).origin;
 
-    useEffect(() => {
-        let objectUrl: string;
-        const controller = new AbortController();
-
-        const domainHost = new URL(domain).host;
-
-        const hydrate = async () => {
-            try {
-                const res = await fetch(`https://logo.clearbit.com/${domainHost}`, {
-                    signal: controller.signal,
-                });
-
-                objectUrl = URL.createObjectURL(await res.blob());
-
-                setObjectUrl(objectUrl);
-            } catch (err) {
-                log.error(`Failed to fetch favicon for "${domain}"`, err);
-            }
-        };
-
-        hydrate();
-
-        return () => {
-            controller.abort();
-            URL.revokeObjectURL(objectUrl);
-        };
+        return `https://www.google.com/s2/favicons?domain=${domainOrigin}&sz=64`;
     }, [domain]);
-
-    return objectUrl;
-};

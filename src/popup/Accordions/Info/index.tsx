@@ -1,9 +1,10 @@
-import { Box, List, ListItem, ListItemText } from '@mui/material';
-import { HELP_AND_INFO_FAQ } from '../../../consts';
+import { Box, Divider, List, ListItem, ListItemText } from '@mui/material';
+import { FEATURE_REQUEST_URL, HELP_AND_INFO_FAQ, REPORT_BUG_URL } from '../../../consts';
+import { Link } from '../../components/Link';
 
 export const Info = () => {
     return (
-        <Box display='flex' flexDirection='column'>
+        <Box display='flex' flexDirection='column' gap='10px'>
             <List disablePadding>
                 {HELP_AND_INFO_FAQ.map(({ primary, secondary }) => (
                     <ListItem key={`info-item-${primary}`} disablePadding>
@@ -11,6 +12,14 @@ export const Info = () => {
                     </ListItem>
                 ))}
             </List>
+
+            <Divider flexItem />
+
+            <Box display='flex' gap='10px'>
+                <Link url={FEATURE_REQUEST_URL}>Request a Feature</Link>
+
+                <Link url={REPORT_BUG_URL}>Report a Bug</Link>
+            </Box>
         </Box>
     );
 };

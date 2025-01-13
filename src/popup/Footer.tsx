@@ -1,7 +1,8 @@
-import { Typography, Link, styled, type SvgIconProps } from '@mui/material';
+import { Typography, styled, type SvgIconProps } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { memo, useCallback, useState } from 'react';
 import { CREATOR_LINKS } from '../consts';
+import { Link } from './components/Link';
 
 const RAINBOW = ['red', 'orange', 'yellow', 'forestgreen', 'darkturquoise', 'indigo', 'purple'];
 
@@ -12,15 +13,6 @@ const LoveIcon = styled((props: SvgIconProps) => <FavoriteIcon {...props} color=
 }));
 
 export const Footer = memo(() => {
-    const handleUrlClick = useCallback(() => {
-        CREATOR_LINKS.forEach((url, i, arr) => {
-            chrome.tabs.create({
-                url,
-                active: i === arr.length - 1,
-            });
-        });
-    }, []);
-
     const [rainbowIndex, setRainbowIndex] = useState(-1);
 
     const handleHeartClick = useCallback(() => setRainbowIndex((prev) => (prev >= RAINBOW.length - 1 ? -1 : prev + 1)), []);
@@ -43,7 +35,7 @@ export const Footer = memo(() => {
                 onClick={handleHeartClick}
             />{' '}
             By
-            <Link ml={0.5} color='inherit' fontSize='inherit' sx={{ cursor: 'pointer' }} component='span' onClick={handleUrlClick}>
+            <Link ml={0.5} url={CREATOR_LINKS}>
                 Matt Stephens
             </Link>
         </Typography>
