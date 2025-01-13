@@ -10,6 +10,7 @@ import BedtimeIcon from '@mui/icons-material/Bedtime';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import MicIcon from '@mui/icons-material/Mic';
+import WebAssetIcon from '@mui/icons-material/WebAsset';
 import { toast } from '../../Toast';
 import { Favicon } from '../../components/DomainFavicon';
 import { pluralize } from '../../../utils';
@@ -255,6 +256,40 @@ const TabGroupListItem = ({
     const handleOpenMenu: MouseEventHandler<HTMLElement> = useCallback((e) => setAnchor(e.currentTarget), []);
     const handleCloseMenu = useCallback(() => setAnchor(null), []);
 
+    const handleMoveAllToWindow = useCallback(async () => {
+        operation: try {
+            const currentWindowTabs = await chrome.tabs.query({ windowId: tabs[0].windowId });
+
+            const currentWindowTabIds = currentWindowTabs.map(({ id }) => id!);
+
+            // If all the tabs in the group are already in the same window and they are the only tabs in that window
+            if (currentWindowTabIds.length === tabs.length && tabs.every(({ id }) => currentWindowTabIds.includes(id!))) {
+                toast({
+                    type: 'warning',
+                    message: 'All tabs in this group are already in their own window.',
+                });
+                break operation;
+            }
+
+            const newWindow = await chrome.windows.create({
+                tabId: tabs[0].id!,
+                focused: false,
+            });
+
+            await chrome.tabs.move(
+                tabs.slice(1).map(({ id }) => id!),
+                { index: -1, windowId: newWindow.id! }
+            );
+        } catch {
+            toast({
+                type: 'error',
+                message: 'Failed to move tabs to new window.',
+            });
+        }
+
+        handleCloseMenu();
+    }, [tabs, handleCloseMenu]);
+
     const handleCloseTabs = useCallback(async () => {
         try {
             const lastFocusedWindow = await chrome.windows.getLastFocused();
@@ -265,7 +300,7 @@ const TabGroupListItem = ({
                     ? tabs
                     : tabs.filter(({ active }) => !active);
 
-            await Promise.all(tabsToClose.map(({ id }) => chrome.tabs.remove(id!)));
+            await chrome.tabs.remove(tabsToClose.map(({ id }) => id!));
 
             toast({
                 type: 'success',
@@ -358,7 +393,13 @@ const TabGroupListItem = ({
 
     return (
         <BasicListItem>
-            <BasicAccordion onChange={handleAccordionChange} slotProps={{ transition: { unmountOnExit: true } }}>
+            <BasicAccordion
+                onChange={handleAccordionChange}
+                slotProps={{
+                    transition: {
+                        unmountOnExit: true,
+                    },
+                }}>
                 <Box display='flex' alignItems='center' gap='5px'>
                     <BasicAccordionSummary ref={accordionRef}>
                         <Favicon url={favIconUrl} />
@@ -401,6 +442,13 @@ const TabGroupListItem = ({
                             <PushPinIcon />
                             {someTabsPinned ? 'Unpin All' : 'Pin All'}
                         </MenuItem>
+
+                        {groupType !== 'Window' && (
+                            <MenuItem onClick={handleMoveAllToWindow} disableRipple>
+                                <WebAssetIcon />
+                                New Window
+                            </MenuItem>
+                        )}
                     </HoverMenu>
                 </Box>
 
