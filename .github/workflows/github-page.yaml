@@ -37,7 +37,11 @@ jobs:
               working-directory: ./site
               run: touch ./out/.nojekyll
 
-            - name: Deploy
-              uses: JamesIves/github-pages-deploy-action@v4
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
               with:
-                  folder: ./site/out
+                  path: ./site/out
+
+            - name: Publish to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
