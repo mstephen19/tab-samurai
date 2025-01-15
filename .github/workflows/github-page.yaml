@@ -1,0 +1,43 @@
+name: Github Page
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    build-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Set up Node 20
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+
+            - name: Cache dependencies
+              id: cache_dependencies
+              uses: actions/cache@v3
+              with:
+                  path: ./site/node_modules
+                  key: node-modules-${{ hashFiles('./site/yarn.lock') }}
+
+            - name: Run install
+              working-directory: ./site
+              if: steps.cache_dependencies.outputs.cache-hit != 'true'
+              run: yarn install
+
+            - name: Run build
+              working-directory: ./site
+              run: yarn build
+
+            - name: Create .nojekyll
+              working-directory: ./site
+              run: touch ./out/.nojekyll
+
+            - name: Deploy
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                  folder: ./site/out
