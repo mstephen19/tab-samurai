@@ -18,7 +18,7 @@ export const Hero = () => {
             }}>
             <Image
                 unoptimized
-                src='/logo.png'
+                src='./logo.png'
                 alt='Tab Samurai logo'
                 loading='eager'
                 style={{
@@ -50,7 +50,7 @@ export const Hero = () => {
                     component={NextLink}
                     href='https://chromewebstore.google.com/'
                     sx={{ display: 'flex', gap: '10px' }}>
-                    <Image src='/chrome_webstore.jpg' loading='eager' alt='Chrome WebStore logo' width={20} height={20} />
+                    <Image src='./chrome_webstore.jpg' loading='eager' alt='Chrome WebStore logo' width={20} height={20} />
                     Install on the Chrome WebStore
                 </Button>
 
@@ -62,7 +62,7 @@ export const Hero = () => {
                     component={NextLink}
                     href='https://github.com/mstephen19/tab-samurai'
                     sx={{ display: 'flex', gap: '10px' }}>
-                    <Image src='/github.svg' loading='eager' alt='Chrome WebStore logo' width={20} height={20} />
+                    <Image src='./github.svg' loading='eager' alt='Chrome WebStore logo' width={20} height={20} />
                     See on Github
                 </Button>
             </Box>

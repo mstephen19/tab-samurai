@@ -41,7 +41,7 @@ export const TopBar = () => {
                     userSelect: 'none',
                 }}>
                 <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', cursor: 'pointer' }}>
-                    <Image src='/logo.png' alt='Tab Samurai logo' loading='eager' width={40} height={40} />
+                    <Image src='./logo.png' alt='Tab Samurai logo' loading='eager' width={40} height={40} />
                 </Box>
 
                 <ThemeToggle />
