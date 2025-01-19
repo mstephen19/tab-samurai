@@ -3,6 +3,7 @@ import * as tabDiscard from './tabDiscard';
 import * as tabMetadata from './tabMetadata';
 import * as cache from './cache';
 import { defaultConfig, UNINSTALL_URL } from '../consts';
+import './listener';
 
 async function main() {
     tabMetadata.initialize();
