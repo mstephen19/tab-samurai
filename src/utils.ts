@@ -1,16 +1,23 @@
+import { POPUP_URL } from './consts';
 import type { AppData, Config } from './types';
 
 export const pluralize = (count: number, singular: string, plural: string) => {
     return Math.abs(count) === 1 ? singular : plural;
 };
 
-export const getUrlDomain = (str: string) => {
+export const getUrl = (str: string) => {
     try {
-        const url = new URL(str.replace(/(?<=^https?:\/\/)www\./, ''));
-        return url.origin;
+        const url = new URL(str);
+        return url;
     } catch {
         return null;
     }
+};
+
+export const getUrlDomain = (str: string) => {
+    const url = getUrl(str.replace(/(?<=^https?:\/\/)www\./, ''));
+
+    return url && url.origin;
 };
 
 export const logger = (name: string, color?: string) => {
@@ -63,6 +70,7 @@ export const tabs = {
         const tabUrlDomain = tab.url ? getUrlDomain(tab.url) : null;
 
         return (
+            tab.url === POPUP_URL ||
             tab.audible ||
             (!latestConfig.discardPinnedTabs && tab.pinned) ||
             (tabUrlDomain && latestConfig.whitelistedDomains.some((domain) => tabUrlDomain.startsWith(domain)))
