@@ -9,6 +9,8 @@ export const TabsProvider = ({ children }: { children?: ReactNode }) => {
     useEffect(() => {
         const hydrate = async () => {
             const tabs = await chrome.tabs.query({});
+
+            // Disallow managing panel popout tabs
             setTabs(tabs.filter((tab) => tab.url !== POPUP_URL));
         };
 

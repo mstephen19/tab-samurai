@@ -6,6 +6,7 @@ import { AppDataContext } from '../context/AppDataProvider';
 import { EXTENSION_VERSION } from '../../consts';
 import { Logo } from './Logo';
 import { PopOutButton } from './PopOutButton';
+import { OPENED_IN_POPOUT } from '../consts';
 const FlexToolbar = styled(Toolbar)({
     display: 'flex',
     alignItems: 'center',
@@ -55,7 +56,7 @@ export const TopBar = ({ onLogoClick }: { onLogoClick: () => void }) => {
                     />
                 </Tooltip>
 
-                <PopOutButton />
+                {!OPENED_IN_POPOUT && <PopOutButton />}
             </FlexToolbar>
         </AppBar>
     );
