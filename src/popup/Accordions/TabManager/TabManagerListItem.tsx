@@ -233,16 +233,7 @@ const TabGroupListItem = ({
     const accordionRef = useRef<HTMLDivElement>(null);
 
     const [accordionOpen, setAccordionOpen] = useState(false);
-    const handleAccordionChange = useCallback(
-        (_: SyntheticEvent, expanded: boolean) => setAccordionOpen(expanded),
-        // expanded &&
-        // accordionRef.current &&
-        // getScrollableParent(accordionRef.current)?.scrollBy({
-        //     behavior: 'smooth',
-        //     top: accordionRef.current.getBoundingClientRect().y - 140,
-        // }),
-        []
-    );
+    const handleAccordionChange = useCallback((_: SyntheticEvent, expanded: boolean) => setAccordionOpen(expanded), []);
 
     const pageStates = useContext(PageStateContext);
 
@@ -274,7 +265,7 @@ const TabGroupListItem = ({
 
             const newWindow = await chrome.windows.create({
                 tabId: tabs[0].id!,
-                focused: false,
+                focused: true,
             });
 
             await chrome.tabs.move(

@@ -3,7 +3,7 @@ import { TopBar } from './TopBar';
 import { Accordions } from './Accordions';
 import { AppDataProvider } from './context/AppDataProvider';
 import { ThemeProvider } from './context/ThemeProvider';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Toaster } from './Toast';
 import { Welcome } from './Welcome';
 import { Footer } from './Footer';
@@ -39,6 +39,11 @@ function Popup() {
             top: 0,
             behavior: 'smooth',
         });
+    }, []);
+
+    useEffect(() => {
+        window.resizeTo(600, 600);
+        window.addEventListener('resize', () => window.resizeTo(600, 600));
     }, []);
 
     return (

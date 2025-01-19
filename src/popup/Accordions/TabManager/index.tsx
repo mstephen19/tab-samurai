@@ -3,7 +3,7 @@ import { TabsContext } from '../../context/TabsProvider';
 import { Box, Divider } from '@mui/material';
 import { SearchTabsBox } from './SearchTabsBox';
 import { AppDataContext } from '../../context/AppDataProvider';
-import { tabGroupFns } from '../../../utils';
+import { getUrl, tabGroupFns } from '../../../utils';
 import { PageStateContext } from '../../context/PageStateProvider';
 import TabManagerListItem from './TabManagerListItem';
 import { BasicList } from '../../components/BasicList';
@@ -23,7 +23,12 @@ export const TabManager = () => {
             case 'Window':
                 break;
             case 'Domain':
-                groupedTabList.sort(([a], [b]) => new URL(a).host.localeCompare(new URL(b).host));
+                groupedTabList.sort(([a], [b]) => {
+                    const [urlA, urlB] = [a, b].map((compound) => getUrl(compound.split('\\').shift()!));
+                    if (!urlA || !urlB) return urlA === urlB ? 0 : !urlB ? -1 : 1;
+
+                    return urlA.host.localeCompare(urlB.host);
+                });
         }
 
         // Prioritize group order by capturing video/audio

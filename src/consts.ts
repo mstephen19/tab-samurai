@@ -1,5 +1,7 @@
 import type { AppData, Config } from './types';
 
+export const POPUP_URL = chrome.runtime.getURL('popup.html');
+
 export const EXTENSION_VERSION = chrome.runtime.getManifest().version;
 
 export const UNINSTALL_URL = 'https://forms.gle/VoMrWPXvMjXrC7Z4A';
