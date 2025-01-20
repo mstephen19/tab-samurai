@@ -29,6 +29,7 @@ export const Feature = ({
                         src={imageSrc}
                         alt={imageAlt}
                         unoptimized
+                        loading='lazy'
                         width={0}
                         height={0}
                         style={{
@@ -41,7 +42,7 @@ export const Feature = ({
             </Box>
 
             <Box flex='1 1' minWidth='400px' display='flex' flexDirection='column' justifyContent='center'>
-                <Typography component='h2' fontSize='2.75rem' textAlign='center'>
+                <Typography component='h2' fontSize='clamp(2.25rem, 2.75dvw, 2.75rem)' textAlign='center'>
                     {title}
                 </Typography>
 

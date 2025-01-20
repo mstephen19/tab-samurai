@@ -1,50 +1,49 @@
-# React + TypeScript + Vite
+# Tab Samurai
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules
+<center>
+  <img src="./assets/logo.png" alt="Tab Samurai Logo" width="150">
+</center>
 
-Currently, two official plugins are available:
+Take your browsing experience to the next level with automatic tab hibernation, smart tab management, and intuitive tab recovery.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Install the extension for Chrome, Edge, Brave, and any other Chromium-based browsers [on the Chrome Webstore](https://chromewebstore.google.com/detail/tab-samurai/mbomhgfddnnehpokebhcgjgmmagkgemc).
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Tab Samurai offers four primary features.
 
-- Configure the top-level `parserOptions` property like this:
+### Automatic tab hibernation, managed by you
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Boost browser performance by suspending tabs you haven't used in a while.
+- Choose how long a tab should go un-viewed before hibernating.
+- Manage which tabs should hibernate by curating a domain whitelist.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+<img src="./assets/screenshots/automatic-tab-hibernation.png" alt="Automatic tab hibernation" width="500">
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Maximum visibility of every tab across all windows
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Search through all tabs with a single query.
+- View your tabs grouped by window, or by domain.
+- Quickly find tabs which are recording using your webcam/microphone, playing audio/video, or both.
+
+<img src="./assets/screenshots/maximum-visibility.png" alt="Maximum tab visibility" width="500">
+
+### Fine-grained control of tabs, made simple
+
+- Close an individual tab, or mass-close tabs under a certain domain.
+- Mute an individual tab, or mass-mute all tabs in a window.
+- Move all tabs under a certain domain to a new window.
+
+<img src="./assets/screenshots/fine-grained-control.png" alt="Fine-grained control of tabs" width="500">
+
+### Intuitive lost tab recovery
+
+- View recently closed tab & windows in a list.
+- See the date & time for when a tab or window was closed.
+- Recover a closed tab or window, or a specific tab in a closed window.
+
+<img src="./assets/screenshots/smart-tab-recovery.png" alt="Intuitive lost tab recovery" width="500">
+
+## License
+
+Tab Samurai is an open-source project operating under a modified MIT license. [See license](./LICENSE).

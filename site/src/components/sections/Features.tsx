@@ -18,7 +18,7 @@ export const Features = () => {
                 alignImage='right'
                 title='Automatic tab hibernation, managed by you.'
                 imageSrc='./screenshots/automatic-tab-hibernation.png'
-                imageAlt='Settings panel within Tab Samurai. Displays the \"Hibernate Tabs After\" option, \"Hibernate Pinned Tabs\" option, and \"Domain Whitelist\".'
+                imageAlt='Settings panel within Tab Samurai. Displays the "Hibernate Tabs After" option, "Hibernate Pinned Tabs" option, and "Domain Whitelist".'
                 content={
                     <List sx={{ listStyleType: 'disc', listStyle: 'inside', fontSize: '1.1rem' }}>
                         <ListItem
