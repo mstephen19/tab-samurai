@@ -33,7 +33,7 @@ export const Hero = () => {
                 Tab Samurai
             </Typography>
 
-            <Typography fontSize='1.25rem' textAlign='center'>{`The only tab manager you'll ever need.`}</Typography>
+            <Typography fontSize='1.25rem' textAlign='center'>{`The only tab extension you'll ever need.`}</Typography>
 
             <Box
                 sx={{
@@ -43,15 +43,16 @@ export const Hero = () => {
                     justifyContent: 'center',
                 }}>
                 <Button
-                    title='Install on the Chrome WebStore'
+                    color='info'
+                    title='Install For Chrome, Edge, and Brave'
                     rel='nofollow'
                     target='_blank'
                     variant='contained'
                     component={NextLink}
-                    href='https://chromewebstore.google.com/'
+                    href='https://chromewebstore.google.com/detail/tab-samurai/mbomhgfddnnehpokebhcgjgmmagkgemc'
                     sx={{ display: 'flex', gap: '10px' }}>
                     <Image src='./chrome_webstore.jpg' loading='eager' alt='Chrome WebStore logo' width={20} height={20} unoptimized />
-                    Install on the Chrome WebStore
+                    Install For Chrome, Edge, and Brave
                 </Button>
 
                 <Button

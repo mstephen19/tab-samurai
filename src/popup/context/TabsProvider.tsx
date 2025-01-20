@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
+import { POPUP_URL } from '../../consts';
 
 export const TabsContext = createContext<chrome.tabs.Tab[]>([]);
 
@@ -8,7 +9,9 @@ export const TabsProvider = ({ children }: { children?: ReactNode }) => {
     useEffect(() => {
         const hydrate = async () => {
             const tabs = await chrome.tabs.query({});
-            setTabs(tabs);
+
+            // Disallow managing panel popout tabs
+            setTabs(tabs.filter((tab) => tab.url !== POPUP_URL));
         };
 
         chrome.tabs.onCreated.addListener(hydrate);

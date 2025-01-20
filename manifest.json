@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Tab Samurai",
     "short_name": "Tabs",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Take your browsing experience to the next level with automatic tab hibernation, smart tab management, and intuitive tab recovery.",
     "icons": {
         "16": "public/icon16.png",

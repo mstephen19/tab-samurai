@@ -20,6 +20,7 @@ import { PageStateContext } from '../../context/PageStateProvider';
 import { BasicList, BasicListItem, BasicListItemText } from '../../components/BasicList';
 import { EllipsesTypography } from '../../components/EllipsesTypography';
 import { BasicAccordion, BasicAccordionSummary } from '../../components/BasicAccordion';
+import { OPENED_IN_POPOUT } from '../../consts';
 
 const Dot = styled(Box)({
     width: '0.5rem',
@@ -187,7 +188,7 @@ const TabListItem = memo(
                 </Tooltip>
 
                 <HoverMenu anchorEl={anchor} open={open} onClose={handleCloseMenu}>
-                    <MenuItem disabled={active} onClick={handleCloseTab} disableRipple>
+                    <MenuItem disabled={!OPENED_IN_POPOUT && active} onClick={handleCloseTab} disableRipple>
                         <CancelIcon />
                         Close
                     </MenuItem>
@@ -233,16 +234,7 @@ const TabGroupListItem = ({
     const accordionRef = useRef<HTMLDivElement>(null);
 
     const [accordionOpen, setAccordionOpen] = useState(false);
-    const handleAccordionChange = useCallback(
-        (_: SyntheticEvent, expanded: boolean) => setAccordionOpen(expanded),
-        // expanded &&
-        // accordionRef.current &&
-        // getScrollableParent(accordionRef.current)?.scrollBy({
-        //     behavior: 'smooth',
-        //     top: accordionRef.current.getBoundingClientRect().y - 140,
-        // }),
-        []
-    );
+    const handleAccordionChange = useCallback((_: SyntheticEvent, expanded: boolean) => setAccordionOpen(expanded), []);
 
     const pageStates = useContext(PageStateContext);
 
@@ -274,7 +266,7 @@ const TabGroupListItem = ({
 
             const newWindow = await chrome.windows.create({
                 tabId: tabs[0].id!,
-                focused: false,
+                focused: true,
             });
 
             await chrome.tabs.move(
@@ -298,6 +290,10 @@ const TabGroupListItem = ({
             const tabsToClose =
                 // Close all tabs in the group if grouping by window, and the target window isn't the currently active window
                 groupType === 'Window' && lastFocusedWindow.id !== tabs.find(({ windowId }) => windowId)?.windowId
+                    ? tabs
+                    : // Allow closing active tabs if the panel is opened in the popout
+                    // ? Otherwise, closing the active tab closes the popup
+                    OPENED_IN_POPOUT
                     ? tabs
                     : tabs.filter(({ active }) => !active);
 

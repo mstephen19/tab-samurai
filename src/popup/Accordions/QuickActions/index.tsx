@@ -33,12 +33,11 @@ export const QuickActions = () => {
         }
     }, [tabs, config]);
 
-    const someTabsAudible = tabs.some((tab) => tab.audible);
+    const audibleTabs = tabs.filter((tab) => tab.audible);
+    const someTabsAudible = Boolean(audibleTabs.length);
 
     const handleMuteMediaTabs = useCallback(async () => {
         try {
-            const audibleTabs = tabs.filter((tab) => tab.audible);
-
             await Promise.all(audibleTabs.map((tab) => chrome.tabs.update(tab.id!, { muted: true })));
 
             toast({
@@ -51,14 +50,13 @@ export const QuickActions = () => {
                 message: 'Failed to mute audible tabs.',
             });
         }
-    }, [tabs]);
+    }, [audibleTabs]);
 
-    const someTabsUnpinned = tabs.some((tab) => !tab.pinned && !tab.active);
+    const unpinnedTabs = tabs.filter((tab) => !tab.pinned && !tab.active);
+    const someTabsUnpinned = Boolean(unpinnedTabs.length);
 
     const handleCloseUnpinnedTabs = useCallback(async () => {
         try {
-            const unpinnedTabs = tabs.filter((tab) => !tab.pinned && !tab.active);
-
             await Promise.all(unpinnedTabs.map((tab) => chrome.tabs.remove(tab.id!)));
 
             toast({
@@ -71,9 +69,10 @@ export const QuickActions = () => {
                 message: 'Failed to close unpinned tabs.',
             });
         }
-    }, [tabs]);
+    }, [unpinnedTabs]);
 
     const duplicateTabs = useMemo(() => tabUtils.getDuplicateTabs(tabs), [tabs]);
+    const someDuplicateTabs = Boolean(duplicateTabs.length);
 
     const handleCloseDuplicateTabs = useCallback(async () => {
         try {
@@ -93,7 +92,7 @@ export const QuickActions = () => {
 
     return (
         <Box display='flex' flexDirection='column' gap='5px'>
-            <QuickActionButton disabled={!duplicateTabs.length} onClick={handleCloseDuplicateTabs}>
+            <QuickActionButton disabled={someDuplicateTabs} onClick={handleCloseDuplicateTabs}>
                 Close Duplicate Tabs
             </QuickActionButton>
 
