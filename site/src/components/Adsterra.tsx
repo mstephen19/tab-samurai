@@ -14,6 +14,7 @@ export const Adsterra = () => {
         const script = Object.assign(document.createElement('script'), {
             async: true,
             src: `//pl25629427.profitablecpmrate.com/${ADSTERRA_KEY}/invoke.js`,
+            type: 'text/javascript',
         });
 
         script.setAttribute('data-cfasync', 'false');
