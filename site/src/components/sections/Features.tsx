@@ -1,5 +1,9 @@
 import { Box, Divider, List, ListItem } from '@mui/material';
 import { Feature } from '@/components/Feature';
+import BedtimeIcon from '@mui/icons-material/Bedtime';
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
+import TuneIcon from '@mui/icons-material/Tune';
+import RestoreIcon from '@mui/icons-material/Restore';
 
 // 100% static
 export const revalidate = false;
@@ -17,6 +21,7 @@ export const Features = () => {
             <Feature
                 alignImage='right'
                 title='Automatic tab hibernation, managed by you.'
+                icon={BedtimeIcon}
                 imageSrc='./screenshots/automatic-tab-hibernation.png'
                 imageAlt='Settings panel within Tab Samurai. Displays the "Hibernate Tabs After" option, "Hibernate Pinned Tabs" option, and "Domain Whitelist".'
                 content={
@@ -42,6 +47,7 @@ export const Features = () => {
             <Feature
                 alignImage='left'
                 title='Maximum visibility of every tab across all windows.'
+                icon={TravelExploreIcon}
                 imageSrc='./screenshots/maximum-visibility.png'
                 imageAlt={
                     'Searching for "sunglasses" within Tab Samurai\'s Tab Manager. Results include tabs for eBay, Amazon, and AliExpress.'
@@ -69,6 +75,7 @@ export const Features = () => {
             <Feature
                 alignImage='right'
                 title='Fine-grained control of tabs, made simple.'
+                icon={TuneIcon}
                 imageSrc='./screenshots/fine-grained-control.png'
                 imageAlt='Viewing management options for a tab within Tab Samurai, offering "Close", "Mute", "Hibernate", and "Pin".'
                 content={
@@ -94,6 +101,7 @@ export const Features = () => {
             <Feature
                 alignImage='left'
                 title='Intuitive lost tab recovery.'
+                icon={RestoreIcon}
                 imageSrc='./screenshots/smart-tab-recovery.png'
                 imageAlt='Demonstration of recovering a tab using the "Tab Recovery" list within Tab Samurai.'
                 content={

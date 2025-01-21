@@ -28,6 +28,7 @@ export const TopBar = () => {
 
     return (
         <AppBar
+            component='nav'
             position='fixed'
             sx={{
                 transform: hide ? `translateY(-100%)` : undefined,

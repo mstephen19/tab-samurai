@@ -33,7 +33,9 @@ export const Hero = () => {
                 Tab Samurai
             </Typography>
 
-            <Typography fontSize='1.25rem' textAlign='center'>{`The only tab extension you'll ever need.`}</Typography>
+            <Typography fontSize='1.25rem' textAlign='center' sx={{ textUnderlineOffset: '3px' }}>
+                The <u>only</u> tab extension you <u>need</u>.
+            </Typography>
 
             <Box
                 sx={{
@@ -45,7 +47,6 @@ export const Hero = () => {
                 <Button
                     color='info'
                     title='Install For Chrome, Edge, and Brave'
-                    rel='nofollow'
                     target='_blank'
                     variant='contained'
                     component={NextLink}
@@ -57,7 +58,6 @@ export const Hero = () => {
 
                 <Button
                     title='See on Github'
-                    rel='nofollow'
                     target='_blank'
                     variant='contained'
                     component={NextLink}
