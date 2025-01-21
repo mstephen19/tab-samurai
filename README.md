@@ -46,4 +46,4 @@ Tab Samurai offers four primary features.
 
 ## License
 
-Tab Samurai is an open-source project operating under a modified MIT license. [See license](./LICENSE)
+Tab Samurai is an open-source project operating under a modified MIT license. [See license](./LICENSE).
