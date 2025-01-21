@@ -2,6 +2,10 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { AppDataContext } from './context/AppDataProvider';
 import { Backdrop, Button, Card, CardActions, CardContent, CardHeader, Rating, Typography } from '@mui/material';
 import { store } from '../storage';
+import { tabs } from '../utils';
+import { REVIEW_EXTENSION_URL } from '../consts';
+
+const openExtensionReviewPage = tabs.openUrl(REVIEW_EXTENSION_URL);
 
 export const ReviewPrompt = ({ intervalMs }: { intervalMs: number }) => {
     const [open, setOpen] = useState(false);
@@ -42,7 +46,7 @@ export const ReviewPrompt = ({ intervalMs }: { intervalMs: number }) => {
             reviewPromptLastDismissedMs: -1,
         });
 
-        // todo: Open link
+        openExtensionReviewPage();
     }, [appData]);
 
     return (

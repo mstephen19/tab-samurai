@@ -57,7 +57,8 @@ function Popup() {
                         <UpdatePrompt />
                     </UpdateProvider>
 
-                    <ReviewPrompt intervalMs={10_000} />
+                    {/* Display the "Leave a Review" prompt every 24 hours, until the prompt is accepted */}
+                    <ReviewPrompt intervalMs={1_000 * 60 * 60 * 24} />
 
                     <Toaster filled position='bottom' />
 

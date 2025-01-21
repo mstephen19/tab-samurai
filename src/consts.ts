@@ -8,6 +8,7 @@ export const UNINSTALL_URL = 'https://forms.gle/VoMrWPXvMjXrC7Z4A';
 export const FEATURE_REQUEST_URL = 'https://forms.gle/99eJ7TNeiMnwahyD6';
 export const REPORT_BUG_URL = 'https://github.com/mstephen19/tab-samurai/issues';
 export const EXTENSION_URL = 'https://chromewebstore.google.com/detail/tab-samurai/mbomhgfddnnehpokebhcgjgmmagkgemc';
+export const REVIEW_EXTENSION_URL = 'https://chromewebstore.google.com/detail/tab-samurai/mbomhgfddnnehpokebhcgjgmmagkgemc/reviews';
 export const CREATOR_LINKS = ['https://www.linkedin.com/in/mstephen19/', 'https://github.com/mstephen19'];
 
 export const MANAGE_TABS_GROUP_OPTIONS = ['Domain', 'Window'] as const;
@@ -60,7 +61,8 @@ export const defaultAppData: AppData = {
     theme: 'light',
     manageTabsGroupBy: 'Domain',
     userWelcomed: false,
-    reviewPromptLastDismissedMs: Date.now(),
+    // Display the "Leave a Review" prompt for the first time 3 days after installation
+    reviewPromptLastDismissedMs: Date.now() + 1_000 * 60 * 60 * 24 * 3,
     accordionState: {
         settings: false,
         quickActions: false,
