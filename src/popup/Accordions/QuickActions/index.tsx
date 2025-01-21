@@ -5,8 +5,9 @@ import { ConfigContext } from '../../context/ConfigProvider';
 import { pluralize, tabs as tabUtils } from '../../../utils';
 import { toast } from '../../Toast';
 
-const QuickActionButton = styled((props: ButtonProps) => <Button {...props} variant='outlined' />)({
+const QuickActionButton = styled((props: ButtonProps) => <Button {...props} variant='contained' />)({
     textTransform: 'none',
+    flex: 'calc(50% - (5px / 2)) 1 0',
 });
 
 export const QuickActions = () => {
@@ -91,7 +92,7 @@ export const QuickActions = () => {
     }, [duplicateTabs]);
 
     return (
-        <Box display='flex' flexDirection='column' gap='5px'>
+        <Box display='flex' gap='5px' flexWrap='wrap'>
             <QuickActionButton disabled={someDuplicateTabs} onClick={handleCloseDuplicateTabs}>
                 Close Duplicate Tabs
             </QuickActionButton>
