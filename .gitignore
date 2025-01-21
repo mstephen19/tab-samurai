@@ -1,5 +1,6 @@
 dist.zip
 src/background/listener
+src/content/listener
 
 # Logs
 logs
