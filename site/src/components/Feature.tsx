@@ -1,16 +1,18 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, type SvgIcon } from '@mui/material';
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 
 export const Feature = ({
     alignImage,
     title,
+    icon: Icon,
     imageSrc,
     imageAlt,
     content,
 }: {
     alignImage: 'right' | 'left';
     title: string;
+    icon?: typeof SvgIcon;
     imageSrc: string;
     imageAlt: string;
     content: ReactNode;
@@ -42,7 +44,18 @@ export const Feature = ({
             </Box>
 
             <Box flex='1 1' minWidth='400px' display='flex' flexDirection='column' justifyContent='center'>
-                <Typography component='h2' fontSize='clamp(2.25rem, 2.75dvw, 2.75rem)' textAlign='center'>
+                <Typography component='h2' fontSize='clamp(2rem, 2.75dvw, 2.75rem)' textAlign='center'>
+                    {Icon && (
+                        <Icon
+                            sx={{
+                                fontSize: 'inherit',
+                                verticalAlign: 'middle',
+                                display: 'inline-block',
+                                marginRight: '5px',
+                            }}
+                        />
+                    )}
+
                     {title}
                 </Typography>
 
