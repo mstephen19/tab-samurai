@@ -1,5 +1,8 @@
 import logo from '../../assets/logo.png';
 import { memo, useCallback, useRef } from 'react';
+import { tabs } from '../../utils';
+
+const openLogoUrl = tabs.openUrl('https://www.youtube.com/watch?v=AtPrjYp75uA');
 
 export const Logo = memo(() => {
     const clickCount = useRef(0);
@@ -14,7 +17,7 @@ export const Logo = memo(() => {
         }
 
         if (clickCount.current === 5) {
-            chrome.tabs.create({ url: 'https://www.youtube.com/watch?v=AtPrjYp75uA' });
+            openLogoUrl();
             clearTimeout(clickCountResetTimeout.current);
             clearClickCount();
         }

@@ -5,11 +5,10 @@ export const POPUP_URL = chrome.runtime.getURL('popup.html');
 export const EXTENSION_VERSION = chrome.runtime.getManifest().version;
 
 export const UNINSTALL_URL = 'https://forms.gle/VoMrWPXvMjXrC7Z4A';
-
 export const FEATURE_REQUEST_URL = 'https://forms.gle/99eJ7TNeiMnwahyD6';
-
 export const REPORT_BUG_URL = 'https://github.com/mstephen19/tab-samurai/issues';
-
+export const EXTENSION_URL = 'https://chromewebstore.google.com/detail/tab-samurai/mbomhgfddnnehpokebhcgjgmmagkgemc';
+export const REVIEW_EXTENSION_URL = 'https://chromewebstore.google.com/detail/tab-samurai/mbomhgfddnnehpokebhcgjgmmagkgemc/reviews';
 export const CREATOR_LINKS = ['https://www.linkedin.com/in/mstephen19/', 'https://github.com/mstephen19'];
 
 export const MANAGE_TABS_GROUP_OPTIONS = ['Domain', 'Window'] as const;
@@ -52,6 +51,11 @@ export const HELP_AND_INFO_FAQ: { primary: string; secondary: string }[] = [
     },
 ];
 
+// Display the "Leave a Review" prompt for the first time 3 days after installation
+const POST_INSTALL_REVIEW_PROMPT_BUFFER = 1_000 * 60 * 60 * 24 * 3;
+// Display the "Leave a Review" prompt every 24 hours, until the prompt is accepted
+export const REVIEW_PROMPT_INTERVAL = 1_000 * 60 * 60 * 24;
+
 export const defaultConfig: Config = {
     discardTabsAfterMilliseconds: DISCARD_TABS_AFTER_MILLISECONDS_OPTIONS['1 hour'],
     discardPinnedTabs: false,
@@ -62,6 +66,7 @@ export const defaultAppData: AppData = {
     theme: 'light',
     manageTabsGroupBy: 'Domain',
     userWelcomed: false,
+    reviewPromptLastDismissedMs: Date.now() + POST_INSTALL_REVIEW_PROMPT_BUFFER,
     accordionState: {
         settings: false,
         quickActions: false,
