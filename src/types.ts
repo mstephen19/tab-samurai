@@ -10,6 +10,7 @@ export type AppData = {
     theme: 'light' | 'dark';
     manageTabsGroupBy: (typeof MANAGE_TABS_GROUP_OPTIONS)[number];
     userWelcomed: boolean;
+    reviewPromptLastDismissedMs: number;
     accordionState: {
         settings: boolean;
         quickActions: boolean;

@@ -9,6 +9,7 @@ import { Welcome } from './Welcome';
 import { Footer } from './Footer';
 import { UpdateProvider } from './context/UpdateProvider';
 import { UpdatePrompt } from './UpdatePrompt';
+import { ReviewPrompt } from './ReviewPrompt';
 
 const AppWrapper = styled(Box)(({ theme }) => ({
     height: '600px',
@@ -55,6 +56,8 @@ function Popup() {
                     <UpdateProvider>
                         <UpdatePrompt />
                     </UpdateProvider>
+
+                    <ReviewPrompt intervalMs={10_000} />
 
                     <Toaster filled position='bottom' />
 
