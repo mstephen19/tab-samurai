@@ -51,6 +51,11 @@ export const HELP_AND_INFO_FAQ: { primary: string; secondary: string }[] = [
     },
 ];
 
+// Display the "Leave a Review" prompt for the first time 3 days after installation
+const POST_INSTALL_REVIEW_PROMPT_BUFFER = 1_000 * 60 * 60 * 24 * 3;
+// Display the "Leave a Review" prompt every 24 hours, until the prompt is accepted
+export const REVIEW_PROMPT_INTERVAL = 1_000 * 60 * 60 * 24;
+
 export const defaultConfig: Config = {
     discardTabsAfterMilliseconds: DISCARD_TABS_AFTER_MILLISECONDS_OPTIONS['1 hour'],
     discardPinnedTabs: false,
@@ -61,8 +66,7 @@ export const defaultAppData: AppData = {
     theme: 'light',
     manageTabsGroupBy: 'Domain',
     userWelcomed: false,
-    // Display the "Leave a Review" prompt for the first time 3 days after installation
-    reviewPromptLastDismissedMs: Date.now() + 1_000 * 60 * 60 * 24 * 3,
+    reviewPromptLastDismissedMs: Date.now() + POST_INSTALL_REVIEW_PROMPT_BUFFER,
     accordionState: {
         settings: false,
         quickActions: false,

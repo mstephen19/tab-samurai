@@ -10,6 +10,7 @@ import { Footer } from './Footer';
 import { UpdateProvider } from './context/UpdateProvider';
 import { UpdatePrompt } from './UpdatePrompt';
 import { ReviewPrompt } from './ReviewPrompt';
+import { REVIEW_PROMPT_INTERVAL } from '../consts';
 
 const AppWrapper = styled(Box)(({ theme }) => ({
     height: '600px',
@@ -57,8 +58,7 @@ function Popup() {
                         <UpdatePrompt />
                     </UpdateProvider>
 
-                    {/* Display the "Leave a Review" prompt every 24 hours, until the prompt is accepted */}
-                    <ReviewPrompt intervalMs={1_000 * 60 * 60 * 24} />
+                    <ReviewPrompt intervalMs={REVIEW_PROMPT_INTERVAL} />
 
                     <Toaster filled position='bottom' />
 
