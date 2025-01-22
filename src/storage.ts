@@ -3,6 +3,7 @@ import type { AppData, Config, TabStreamState } from './types';
 const enum StorageKey {
     Config = 'config',
     AppData = 'appData',
+    AvailableUpdateVersion = 'availableUpdateVersion',
 }
 
 /**
@@ -60,6 +61,7 @@ export const storageMemCache = <Data>(api: ReturnType<typeof chromeStorage<Data>
 export const store = {
     config: chromeStorage<Config>(chrome.storage.sync, StorageKey.Config),
     appData: chromeStorage<AppData>(chrome.storage.sync, StorageKey.AppData),
+    availableUpdateVersion: chromeStorage<string | null>(chrome.storage.local, StorageKey.AvailableUpdateVersion),
 };
 
 const enum CollectionName {
