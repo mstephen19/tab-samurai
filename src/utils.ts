@@ -71,7 +71,8 @@ export const tabs = {
 
         return (
             tab.url === POPUP_URL ||
-            tab.audible ||
+            // The tab can be heard if it's audible, but not muted
+            (tab.audible && !tab.mutedInfo?.muted) ||
             (!latestConfig.discardPinnedTabs && tab.pinned) ||
             (tabUrlDomain && latestConfig.whitelistedDomains.some((domain) => tabUrlDomain.startsWith(domain)))
         );

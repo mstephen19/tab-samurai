@@ -34,7 +34,7 @@ export const QuickActions = () => {
         }
     }, [tabs, config]);
 
-    const audibleTabs = tabs.filter((tab) => tab.audible);
+    const audibleTabs = tabs.filter((tab) => tab.audible && !tab.mutedInfo?.muted);
     const someTabsAudible = Boolean(audibleTabs.length);
 
     const handleMuteMediaTabs = useCallback(async () => {
