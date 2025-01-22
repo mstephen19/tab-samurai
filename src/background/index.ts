@@ -12,6 +12,7 @@ async function main() {
         // Tab discard is dependent on tabState & user config (Settings)
         tabState.initialize(),
         cache.config.init(defaultConfig),
+        cache.tabPageStates.init(),
     ]);
 
     tabDiscard.initialize();

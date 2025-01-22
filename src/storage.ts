@@ -114,6 +114,39 @@ export const collectionStorage = <Data>(storage: chrome.storage.StorageArea, col
     };
 };
 
+/**
+ * {@link chromeStorage} subscriber.
+ *
+ * Cache a readable copy of the {@link chromeStorage} API. Updates the cache when `onChange` fires.
+ *
+ * Provides a realtime view of a store, allowing immediate access to the latest data.
+ */
+export const collectionMemCache = <Data>(api: ReturnType<typeof collectionStorage<Data>>) => {
+    let latest: Record<string, Data> = {};
+    const changeHandlers = new Set<(key: string, value: Data | null, latest: Record<string, Data>) => void | Promise<void>>();
+
+    return {
+        init: async () => {
+            latest = await api.read();
+
+            api.onChange((key, value) => {
+                if (value === null) delete latest[key];
+                else latest[key] = value;
+
+                changeHandlers.forEach((handler) => handler(key, value, latest));
+            });
+        },
+        onChange: (handler: (key: string, value: Data | null, latest: Record<string, Data>) => void | Promise<void>) => {
+            changeHandlers.add(handler);
+
+            return () => changeHandlers.delete(handler);
+        },
+        get latest() {
+            return latest;
+        },
+    };
+};
+
 export const collections = {
     /**
      * TabID -> Timestamp
