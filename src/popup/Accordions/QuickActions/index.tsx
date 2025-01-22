@@ -1,6 +1,6 @@
 import { useCallback, useContext, useMemo } from 'react';
 import { TabsContext } from '../../context/TabsProvider';
-import { Box, Button, type ButtonProps, styled } from '@mui/material';
+import { Box, Button, type ButtonProps, styled, Tooltip } from '@mui/material';
 import { ConfigContext } from '../../context/ConfigProvider';
 import { pluralize, tabs as tabUtils } from '../../../utils';
 import { toast } from '../../Toast';
@@ -93,17 +93,21 @@ export const QuickActions = () => {
 
     return (
         <Box display='flex' gap='5px' flexWrap='wrap'>
-            <QuickActionButton disabled={someDuplicateTabs} onClick={handleCloseDuplicateTabs}>
-                Close Duplicate Tabs
-            </QuickActionButton>
+            <Tooltip title={`Found ${duplicateTabs.length} tabs which are duplicates`}>
+                <QuickActionButton disabled={!someDuplicateTabs} onClick={handleCloseDuplicateTabs}>
+                    Close Duplicate Tabs
+                </QuickActionButton>
+            </Tooltip>
 
             <QuickActionButton disabled={allTabsDiscardedActiveOrWhitelisted} onClick={handleSuspendInactiveTabs}>
                 Hibernate All Inactive Tabs
             </QuickActionButton>
 
-            <QuickActionButton disabled={!someTabsAudible} onClick={handleMuteMediaTabs}>
-                Mute All Media-Playing Tabs
-            </QuickActionButton>
+            <Tooltip title={`Found ${audibleTabs.length} audible tabs`}>
+                <QuickActionButton disabled={!someTabsAudible} onClick={handleMuteMediaTabs}>
+                    Mute All Media-Playing Tabs
+                </QuickActionButton>
+            </Tooltip>
 
             <QuickActionButton disabled={!someTabsUnpinned} onClick={handleCloseUnpinnedTabs}>
                 Close All Unpinned Tabs
