@@ -1,9 +1,10 @@
 import { useCallback, useContext, useMemo } from 'react';
 import { TabsContext } from '../../context/TabsProvider';
-import { Box, Button, type ButtonProps, styled } from '@mui/material';
+import { Box, Button, type ButtonProps, styled, Tooltip } from '@mui/material';
 import { ConfigContext } from '../../context/ConfigProvider';
 import { pluralize, tabs as tabUtils } from '../../../utils';
 import { toast } from '../../Toast';
+import { PageStateContext } from '../../context/PageStateProvider';
 
 const QuickActionButton = styled((props: ButtonProps) => <Button {...props} variant='contained' />)({
     textTransform: 'none',
@@ -13,12 +14,15 @@ const QuickActionButton = styled((props: ButtonProps) => <Button {...props} vari
 export const QuickActions = () => {
     const tabs = useContext(TabsContext);
     const config = useContext(ConfigContext);
+    const pageStates = useContext(PageStateContext);
 
-    const allTabsDiscardedActiveOrWhitelisted = tabs.every((tab) => tab.discarded || tab.active || tabUtils.shouldWhitelist(tab, config));
+    const allTabsDiscardedActiveOrWhitelisted = tabs.every(
+        (tab) => tab.discarded || tab.active || tabUtils.shouldWhitelist(tab, config, pageStates)
+    );
 
     const handleSuspendInactiveTabs = useCallback(async () => {
         try {
-            const inactiveTabs = tabs.filter((tab) => !tab.active && !tab.discarded && !tabUtils.shouldWhitelist(tab, config));
+            const inactiveTabs = tabs.filter((tab) => !tab.active && !tab.discarded && !tabUtils.shouldWhitelist(tab, config, pageStates));
 
             await Promise.all(inactiveTabs.map((tab) => chrome.tabs.discard(tab.id!)));
 
@@ -32,9 +36,9 @@ export const QuickActions = () => {
                 message: 'Failed to hibernate inactive tabs.',
             });
         }
-    }, [tabs, config]);
+    }, [tabs, config, pageStates]);
 
-    const audibleTabs = tabs.filter((tab) => tab.audible);
+    const audibleTabs = tabs.filter((tab) => tab.audible && !tab.mutedInfo?.muted);
     const someTabsAudible = Boolean(audibleTabs.length);
 
     const handleMuteMediaTabs = useCallback(async () => {
@@ -93,17 +97,21 @@ export const QuickActions = () => {
 
     return (
         <Box display='flex' gap='5px' flexWrap='wrap'>
-            <QuickActionButton disabled={someDuplicateTabs} onClick={handleCloseDuplicateTabs}>
-                Close Duplicate Tabs
-            </QuickActionButton>
+            <Tooltip title={`Found ${duplicateTabs.length} tabs which are duplicates`}>
+                <QuickActionButton disabled={!someDuplicateTabs} onClick={handleCloseDuplicateTabs}>
+                    Close Duplicate Tabs
+                </QuickActionButton>
+            </Tooltip>
 
             <QuickActionButton disabled={allTabsDiscardedActiveOrWhitelisted} onClick={handleSuspendInactiveTabs}>
                 Hibernate All Inactive Tabs
             </QuickActionButton>
 
-            <QuickActionButton disabled={!someTabsAudible} onClick={handleMuteMediaTabs}>
-                Mute All Media-Playing Tabs
-            </QuickActionButton>
+            <Tooltip title={`Found ${audibleTabs.length} audible tabs`}>
+                <QuickActionButton disabled={!someTabsAudible} onClick={handleMuteMediaTabs}>
+                    Mute All Media-Playing Tabs
+                </QuickActionButton>
+            </Tooltip>
 
             <QuickActionButton disabled={!someTabsUnpinned} onClick={handleCloseUnpinnedTabs}>
                 Close All Unpinned Tabs

@@ -43,7 +43,7 @@ export const Settings = () => {
             <Box display='flex' flexDirection='column'>
                 <ConfigName
                     name='Hibernate Pinned Tabs'
-                    tip='Whether or not to hibernate pinned tabs. Tabs playing audio will never hibernate.'
+                    tip='Whether or not to hibernate pinned tabs. Tabs playing audio and/or recording video/audio will never hibernate.'
                 />
 
                 <FormControlLabel

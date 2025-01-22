@@ -1,5 +1,5 @@
 import { POPUP_URL } from './consts';
-import type { AppData, Config } from './types';
+import type { AppData, Config, TabStreamState } from './types';
 
 export const pluralize = (count: number, singular: string, plural: string) => {
     return Math.abs(count) === 1 ? singular : plural;
@@ -66,14 +66,16 @@ export const tabGroupFns: Record<
 };
 
 export const tabs = {
-    shouldWhitelist: (tab: chrome.tabs.Tab, latestConfig: Config) => {
+    shouldWhitelist: (tab: chrome.tabs.Tab, latestConfig: Config, pageStates: Record<string, TabStreamState | null>) => {
         const tabUrlDomain = tab.url ? getUrlDomain(tab.url) : null;
 
         return (
             tab.url === POPUP_URL ||
-            tab.audible ||
+            // The tab can be heard if it's audible, but not muted
+            (tab.audible && !tab.mutedInfo?.muted) ||
             (!latestConfig.discardPinnedTabs && tab.pinned) ||
-            (tabUrlDomain && latestConfig.whitelistedDomains.some((domain) => tabUrlDomain.startsWith(domain)))
+            (tabUrlDomain && latestConfig.whitelistedDomains.some((domain) => tabUrlDomain.startsWith(domain))) ||
+            Boolean(tab.id && (pageStates[tab.id]?.audio || pageStates[tab.id]?.video))
         );
     },
     getDuplicateTabs: (tabs: chrome.tabs.Tab[]) => {
