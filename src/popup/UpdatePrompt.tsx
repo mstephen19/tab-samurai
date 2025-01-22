@@ -3,7 +3,8 @@ import { useCallback, useContext, useState } from 'react';
 import { UpdateContext } from './context/UpdateProvider';
 
 export const UpdatePrompt = () => {
-    const { available, version } = useContext(UpdateContext);
+    const version = useContext(UpdateContext);
+    const available = Boolean(version);
     const [dismissed, setDismissed] = useState(false);
 
     const handleUpdate = useCallback(() => chrome.runtime.reload(), []);
