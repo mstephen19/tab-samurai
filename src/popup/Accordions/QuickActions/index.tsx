@@ -36,7 +36,7 @@ export const QuickActions = () => {
                 message: 'Failed to hibernate inactive tabs.',
             });
         }
-    }, [tabs, config]);
+    }, [tabs, config, pageStates]);
 
     const audibleTabs = tabs.filter((tab) => tab.audible && !tab.mutedInfo?.muted);
     const someTabsAudible = Boolean(audibleTabs.length);
