@@ -58,7 +58,8 @@ export const TabManager = () => {
 
                 if (Boolean(pageStateA?.video) !== Boolean(pageStateB?.video)) return pageStateA?.video ? -1 : 1;
                 if (Boolean(pageStateA?.audio) !== Boolean(pageStateB?.audio)) return pageStateA?.audio ? -1 : 1;
-                if (a.audible !== b.audible) return a.audible ? -1 : 1;
+                if (Boolean(a.audible && !a.mutedInfo?.muted) !== Boolean(b.audible && !b.mutedInfo?.muted))
+                    return a.audible && !a.mutedInfo?.muted ? -1 : 1;
                 return 0;
             })
         );

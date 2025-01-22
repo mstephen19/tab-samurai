@@ -33,9 +33,7 @@ const ManageTabsAccordion = () => {
 
     return (
         <ManagedAccordion chip={tabs.length.toString()} stateKey='manage' title='Manage Tabs' icon={<ManageSearchIcon />} unmountOnExit>
-            <PageStateProvider>
-                <TabManager />
-            </PageStateProvider>
+            <TabManager />
         </ManagedAccordion>
     );
 };
@@ -63,11 +61,13 @@ export const Accordions = () => {
                 <Divider flexItem />
 
                 <TabsProvider>
-                    <QuickActionsAccordion />
+                    <PageStateProvider>
+                        <QuickActionsAccordion />
 
-                    <Divider flexItem />
+                        <Divider flexItem />
 
-                    <ManageTabsAccordion />
+                        <ManageTabsAccordion />
+                    </PageStateProvider>
                 </TabsProvider>
 
                 <Divider flexItem />

@@ -4,6 +4,7 @@ import { Box, Button, type ButtonProps, styled, Tooltip } from '@mui/material';
 import { ConfigContext } from '../../context/ConfigProvider';
 import { pluralize, tabs as tabUtils } from '../../../utils';
 import { toast } from '../../Toast';
+import { PageStateContext } from '../../context/PageStateProvider';
 
 const QuickActionButton = styled((props: ButtonProps) => <Button {...props} variant='contained' />)({
     textTransform: 'none',
@@ -13,12 +14,15 @@ const QuickActionButton = styled((props: ButtonProps) => <Button {...props} vari
 export const QuickActions = () => {
     const tabs = useContext(TabsContext);
     const config = useContext(ConfigContext);
+    const pageStates = useContext(PageStateContext);
 
-    const allTabsDiscardedActiveOrWhitelisted = tabs.every((tab) => tab.discarded || tab.active || tabUtils.shouldWhitelist(tab, config));
+    const allTabsDiscardedActiveOrWhitelisted = tabs.every(
+        (tab) => tab.discarded || tab.active || tabUtils.shouldWhitelist(tab, config, pageStates)
+    );
 
     const handleSuspendInactiveTabs = useCallback(async () => {
         try {
-            const inactiveTabs = tabs.filter((tab) => !tab.active && !tab.discarded && !tabUtils.shouldWhitelist(tab, config));
+            const inactiveTabs = tabs.filter((tab) => !tab.active && !tab.discarded && !tabUtils.shouldWhitelist(tab, config, pageStates));
 
             await Promise.all(inactiveTabs.map((tab) => chrome.tabs.discard(tab.id!)));
 
@@ -34,7 +38,7 @@ export const QuickActions = () => {
         }
     }, [tabs, config]);
 
-    const audibleTabs = tabs.filter((tab) => tab.audible);
+    const audibleTabs = tabs.filter((tab) => tab.audible && !tab.mutedInfo?.muted);
     const someTabsAudible = Boolean(audibleTabs.length);
 
     const handleMuteMediaTabs = useCallback(async () => {
