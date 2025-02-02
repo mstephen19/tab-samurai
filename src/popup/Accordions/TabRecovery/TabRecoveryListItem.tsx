@@ -46,7 +46,15 @@ const TabListItem = memo(
                 <Box display='flex' gap='10px' alignItems='center' width='100%'>
                     <Favicon url={favIconUrl} />
 
-                    <BasicListItemText primary={title} secondary={url} />
+                    <BasicListItemText
+                        primary={title}
+                        secondary={url}
+                        sx={{
+                            '& .MuiListItemText-secondary': {
+                                cursor: 'auto',
+                            },
+                        }}
+                    />
 
                     <Tooltip title='Recover Tab' placement='left' arrow>
                         <IconButton onClick={handleRecover}>
