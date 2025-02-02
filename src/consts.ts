@@ -36,7 +36,7 @@ export const HELP_AND_INFO_FAQ: { primary: string; secondary: string }[] = [
     {
         primary: 'How do I customize which tabs should hibernate?',
         secondary:
-            'Tab Samurai will auto-hibernate a tab once it hasn\'t been viewed for the duration specified within "Settings". You can add domains (e.g. "https://google.com") to the whitelist to ensure they don\'t hibernate. By default, pinned tabs don\'t hibernate; however this option can be switched to "Yes". Your active tab (the one you\'re looking at) will never hibernate. Tabs playing audio will also never hibernate.',
+            'Tab Samurai will auto-hibernate a tab once it hasn\'t been viewed for the duration specified within "Hibernation Settings". You can add domains (e.g. "https://google.com") to the whitelist to ensure they don\'t hibernate. By default, pinned tabs don\'t hibernate; however this option can be switched to "Yes". Your active tab (the one you\'re looking at) will never hibernate. Tabs playing audio or recording via your webcam/microphone will never hibernate.',
     },
     {
         primary: "Will I lose my tab's data when it hibernates?",
