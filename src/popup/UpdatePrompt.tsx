@@ -12,7 +12,7 @@ export const UpdatePrompt = () => {
     const handleDismiss = useCallback(() => setDismissed(true), []);
 
     return (
-        <Backdrop sx={{ zIndex: 2147483647 }} open={available && !dismissed}>
+        <Backdrop sx={{ zIndex: 2147483647 }} open={available && !dismissed} slotProps={{ transition: { unmountOnExit: true } }}>
             <Card sx={{ padding: '10px' }}>
                 <CardHeader title='Update Available!' subheader={`New version: v${version}`} />
 

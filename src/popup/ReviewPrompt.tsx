@@ -50,7 +50,7 @@ export const ReviewPrompt = ({ intervalMs }: { intervalMs: number }) => {
     }, [appData]);
 
     return (
-        <Backdrop sx={{ zIndex: 2147483646 }} open={open}>
+        <Backdrop sx={{ zIndex: 2147483646 }} open={open} slotProps={{ transition: { unmountOnExit: true } }}>
             <Card sx={{ padding: '10px' }}>
                 <CardHeader title='Leave a Review' subheader='Take a few minutes to share your thoughts about the extension.' />
 

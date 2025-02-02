@@ -17,7 +17,7 @@ import { SessionsProvider } from '../context/SessionsProvider';
 import { TabRecovery } from './TabRecovery';
 
 const SettingsAccordion = () => (
-    <ManagedAccordion stateKey='settings' title='Hibernation Settings' icon={<SettingsIcon />}>
+    <ManagedAccordion stateKey='settings' title='Hibernation Settings' icon={<SettingsIcon />} unmountOnExit>
         <Settings />
     </ManagedAccordion>
 );
@@ -45,7 +45,7 @@ const RecoverTabsAccordion = () => (
 );
 
 const HelpAndInfoAccordion = () => (
-    <ManagedAccordion stateKey='info' title='Help & Info' icon={<HelpCenterIcon />}>
+    <ManagedAccordion stateKey='info' title='Help & Info' icon={<HelpCenterIcon />} unmountOnExit>
         <Info />
     </ManagedAccordion>
 );
