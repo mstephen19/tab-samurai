@@ -60,16 +60,17 @@ export const SearchTabsBox = memo(
                     />
                 </Paper>
 
-                <Paper
-                    elevation={3}
-                    sx={{
-                        display: 'flex',
-                        placeItems: 'center',
-                        border: '1px solid white',
-                    }}>
-                    <Tooltip arrow title='Group By' placement='top'>
+                <Tooltip arrow title='Group By' placement='top'>
+                    <Paper
+                        onClick={handleOpenMenu}
+                        elevation={3}
+                        sx={{
+                            cursor: 'pointer',
+                            display: 'flex',
+                            placeItems: 'center',
+                            border: '1px solid white',
+                        }}>
                         <IconButton
-                            onClick={handleOpenMenu}
                             disableRipple
                             size='small'
                             sx={{
@@ -79,8 +80,8 @@ export const SearchTabsBox = memo(
                             }}>
                             <CompressIcon />
                         </IconButton>
-                    </Tooltip>
-                </Paper>
+                    </Paper>
+                </Tooltip>
 
                 <HoverMenu anchorEl={anchor} open={open} onClose={handleCloseMenu}>
                     {MANAGE_TABS_GROUP_OPTIONS.map((option) => (

@@ -49,6 +49,9 @@ export const metadata: Metadata = {
         description:
             'Take your browsing experience to the next level with automatic tab hibernation, smart tab management, and intuitive tab recovery.',
     },
+    other: {
+        'google-site-verification': 'Bd4LAkjfHg1A--AkO0gk0s6_-pa5vmpnM2m4CoXkJIM',
+    },
 };
 
 export default function RootLayout({
