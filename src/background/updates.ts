@@ -11,7 +11,6 @@ export const initialize = async () => {
 
     // If an update is available & not already tracked
     if (updateAvailable && updateDetails.version !== availableUpdateVersion) {
-        console.log('hi');
         store.availableUpdateVersion.write(updateDetails.version);
     }
 

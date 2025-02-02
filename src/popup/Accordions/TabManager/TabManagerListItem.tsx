@@ -286,16 +286,23 @@ const TabGroupListItem = ({
     const handleCloseTabs = useCallback(async () => {
         try {
             const lastFocusedWindow = await chrome.windows.getLastFocused();
+            const tabGroupWindowId = groupType === 'Window' ? tabs.find(({ windowId }) => windowId)?.windowId : null;
+
+            // Close whole window if grouping by window, and the target window isn't the currently active window
+            if (tabGroupWindowId && lastFocusedWindow.id !== tabGroupWindowId) {
+                await chrome.windows.remove(tabGroupWindowId);
+
+                toast({
+                    type: 'success',
+                    message: `Closed window with ${tabs.length} ${pluralize(tabs.length, 'tab', 'tabs')}`,
+                });
+                return;
+            }
 
             const tabsToClose =
-                // Close all tabs in the group if grouping by window, and the target window isn't the currently active window
-                groupType === 'Window' && lastFocusedWindow.id !== tabs.find(({ windowId }) => windowId)?.windowId
-                    ? tabs
-                    : // Allow closing active tabs if the panel is opened in the popout
-                    // ? Otherwise, closing the active tab closes the popup
-                    OPENED_IN_POPOUT
-                    ? tabs
-                    : tabs.filter(({ active }) => !active);
+                // Allow closing active tabs if the panel is opened in the popout
+                // ? Otherwise, closing the active tab closes the popup
+                OPENED_IN_POPOUT ? tabs : tabs.filter(({ active }) => !active);
 
             await chrome.tabs.remove(tabsToClose.map(({ id }) => id!));
 

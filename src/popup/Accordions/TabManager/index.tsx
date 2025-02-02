@@ -16,8 +16,6 @@ export const TabManager = () => {
     const [inputText, setInputText] = useState('');
 
     const groupedTabs = useMemo(() => {
-        console.log(pageStates);
-
         const groupedTabList = Object.entries(tabGroupFns[appData.manageTabsGroupBy](tabs));
 
         switch (appData.manageTabsGroupBy) {
@@ -25,6 +23,7 @@ export const TabManager = () => {
             case 'Window':
                 break;
             case 'Domain':
+                // Sort groups when grouped by domain
                 groupedTabList.sort(([a], [b]) => {
                     const [urlA, urlB] = [a, b].map((compound) => getUrl(compound.split('\\').shift()!));
                     if (!urlA || !urlB) return urlA === urlB ? 0 : !urlB ? -1 : 1;
