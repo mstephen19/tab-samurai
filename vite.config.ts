@@ -7,13 +7,6 @@ import manifest from './manifest.json';
 export default defineConfig({
     plugins: [react(), crx({ manifest: manifest as ManifestV3Export })],
     build: {
-        sourcemap: false,
-        rollupOptions: {
-            treeshake: {
-                moduleSideEffects: false,
-                propertyReadSideEffects: false,
-            },
-        },
         emptyOutDir: true,
     },
 });
